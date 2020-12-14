@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/PoemFragment">
+
+    <fragment
+        android:id="@+id/PoemFragment"
+        android:name="net.djemai.poems.PoemFragment"
+        android:label="@string/poem_fragment_label"
+        tools:layout="@layout/poem_fragment" />
+</navigation>
