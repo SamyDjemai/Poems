@@ -75,10 +75,7 @@ public class AsyncImageSearchTask extends AsyncTask<String, Void, JSONObject> {
                         .getJSONObject(0)
                         .getString("media");
                 Log.i("SD", imageURL);
-                poemFragment.imageURL = imageURL;
-                Picasso.get()
-                        .load(imageURL)
-                        .into(poemFragment.getImageView());
+                poemFragment.loadImage(imageURL);
             } catch (JSONException e) {
                 e.printStackTrace();
             }

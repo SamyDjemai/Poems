@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import net.djemai.poems.Poem;
 import net.djemai.poems.PoemFragment;
 
 import org.json.JSONArray;
@@ -81,12 +82,9 @@ public class AsyncPoemFetchTask extends AsyncTask<String, Void, JSONArray> {
                     content += linesArray.getString(i) + "\n";
                 }
 
-                poemFragment.setTitle(title);
-                poemFragment.setContent(content);
-                poemFragment.setAuthor(author);
-
-                AsyncImageSearchTask asTask = new AsyncImageSearchTask(poemFragment);
-                asTask.execute(title, author);
+                Poem poem = new Poem(title, author);
+                poem.content = content;
+                poemFragment.setPoem(poem);
 
             } catch (JSONException e) {
                 e.printStackTrace();

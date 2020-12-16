@@ -7,8 +7,7 @@
     tools:context=".PoemActivity">
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/poem_poemFragment"
-        android:name="net.djemai.poems.PoemFragment"
+        android:id="@+id/poem_poemFragmentContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

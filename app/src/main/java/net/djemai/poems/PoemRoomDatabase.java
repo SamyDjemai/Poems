@@ -18,7 +18,7 @@ public abstract class PoemRoomDatabase extends RoomDatabase {
     static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
-    static PoemRoomDatabase getDatabase(final Context context) {
+    public static PoemRoomDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (PoemRoomDatabase.class) {
                 if (INSTANCE == null) {

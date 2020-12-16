@@ -38,6 +38,7 @@
             android:layout_height="32sp"
             android:layout_marginStart="4dp"
             android:background="@drawable/star"
+            android:enabled="false"
             android:text=""
             android:textOff=""
             android:textOn=""

@@ -7,11 +7,10 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.Menu;
 import android.view.MenuItem;
-
-import net.djemai.poems.async.AsyncPoemFetchTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,8 +24,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         poemFragment = getSupportFragmentManager().findFragmentById(R.id.main_poemFragment);
-
-        fetchRandomPoem();
     }
 
     @Override
@@ -40,16 +37,20 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_refresh) {
-            fetchRandomPoem();
+            refreshPoem();
             return true;
         }
         switch (id) {
             case R.id.action_refresh:
-                fetchRandomPoem();
+                refreshPoem();
                 return true;
             case R.id.action_search:
                 Intent search = new Intent(getApplicationContext(), SearchActivity.class);
                 startActivity(search);
+                return true;
+            case R.id.favorites:
+                Intent favorites = new Intent(getApplicationContext(), FavoritesActivity.class);
+                startActivity(favorites);
                 return true;
             default:
                 break;
@@ -58,13 +59,10 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void fetchRandomPoem() {
-        if (poemFragment instanceof PoemFragment) {
-            AsyncPoemFetchTask asTask = new AsyncPoemFetchTask(
-                    (PoemFragment) poemFragment,
-                    true);
-            asTask.execute();
-        }
+    private void refreshPoem() {
+        PoemFragment fragment = new PoemFragment();
+        FragmentTransaction tr = getSupportFragmentManager().beginTransaction();
+        tr.replace(R.id.main_poemFragment, fragment).commit();
     }
 
 }
