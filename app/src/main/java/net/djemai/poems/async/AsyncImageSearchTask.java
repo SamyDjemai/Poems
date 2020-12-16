@@ -1,4 +1,4 @@
-package net.djemai.poems;
+package net.djemai.poems.async;
 
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -6,7 +6,10 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
+
+import net.djemai.poems.PoemFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,12 +25,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
-public class AsyncImageSearch extends AsyncTask<String, Void, JSONObject> {
+public class AsyncImageSearchTask extends AsyncTask<String, Void, JSONObject> {
 
-    private ImageView imageView;
+    private PoemFragment poemFragment;
 
-    public AsyncImageSearch(ImageView imageView) {
-        this.imageView = imageView;
+    public AsyncImageSearchTask(PoemFragment poemFragment) {
+        this.poemFragment = poemFragment;
     }
 
     @Override
@@ -35,7 +38,9 @@ public class AsyncImageSearch extends AsyncTask<String, Void, JSONObject> {
         String s = null;
         JSONObject json = null;
         try {
-            URL url = new URL("https://api.qwant.com/api/search/images?count=1&q=" + Uri.encode(strings[0] + " " + strings[1]) + "&t=images&uiv=1");
+            URL url = new URL("https://api.qwant.com/api/search/images?count=1&q="
+                    + Uri.encode(/* strings[0] + " "  + */ strings[1] + " poet")
+                    + "&t=images&uiv=1");
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             try {
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());
@@ -70,7 +75,10 @@ public class AsyncImageSearch extends AsyncTask<String, Void, JSONObject> {
                         .getJSONObject(0)
                         .getString("media");
                 Log.i("SD", imageURL);
-                Picasso.get().load(imageURL).into(imageView);
+                poemFragment.imageURL = imageURL;
+                Picasso.get()
+                        .load(imageURL)
+                        .into(poemFragment.getImageView());
             } catch (JSONException e) {
                 e.printStackTrace();
             }

@@ -1,17 +1,17 @@
 package net.djemai.poems;
 
 import androidx.fragment.app.Fragment;
+
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.util.Log;
-
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ToggleButton;
+
+import net.djemai.poems.async.AsyncPoemFetchTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,13 +43,26 @@ public class MainActivity extends AppCompatActivity {
             fetchRandomPoem();
             return true;
         }
+        switch (id) {
+            case R.id.action_refresh:
+                fetchRandomPoem();
+                return true;
+            case R.id.action_search:
+                Intent search = new Intent(getApplicationContext(), SearchActivity.class);
+                startActivity(search);
+                return true;
+            default:
+                break;
+        }
 
         return super.onOptionsItemSelected(item);
     }
 
     private void fetchRandomPoem() {
         if (poemFragment instanceof PoemFragment) {
-            AsyncRandomPoemFetch asTask = new AsyncRandomPoemFetch((PoemFragment) poemFragment);
+            AsyncPoemFetchTask asTask = new AsyncPoemFetchTask(
+                    (PoemFragment) poemFragment,
+                    true);
             asTask.execute();
         }
     }

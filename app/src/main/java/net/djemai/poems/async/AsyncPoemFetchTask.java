@@ -1,8 +1,10 @@
-package net.djemai.poems;
+package net.djemai.poems.async;
 
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.TextView;
+
+import net.djemai.poems.PoemFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,20 +19,31 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class AsyncRandomPoemFetch extends AsyncTask<String, Void, JSONArray> {
+public class AsyncPoemFetchTask extends AsyncTask<String, Void, JSONArray> {
 
     private PoemFragment poemFragment;
+    private Boolean randomFetch;
 
-    public AsyncRandomPoemFetch(PoemFragment poemFragment) {
+    public AsyncPoemFetchTask(PoemFragment poemFragment, Boolean randomFetch) {
         this.poemFragment = poemFragment;
+        this.randomFetch = randomFetch;
     }
 
     @Override
     protected JSONArray doInBackground(String... strings) {
         String s = null;
+        URL url = null;
         JSONArray json = null;
         try {
-            URL url = new URL("https://poetrydb.org/random");
+            if (randomFetch) {
+                url = new URL("https://poetrydb.org/random");
+            } else {
+                url = new URL("https://poetrydb.org/title,author/"
+                        + Uri.encode(strings[0])
+                        + ";"
+                        + Uri.encode(strings[1]));
+            }
+
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             try {
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());
@@ -72,8 +85,9 @@ public class AsyncRandomPoemFetch extends AsyncTask<String, Void, JSONArray> {
                 poemFragment.setContent(content);
                 poemFragment.setAuthor(author);
 
-                AsyncImageSearch asyncImageSearch = new AsyncImageSearch(poemFragment.getImageView());
-                asyncImageSearch.execute(title, author);
+                AsyncImageSearchTask asTask = new AsyncImageSearchTask(poemFragment);
+                asTask.execute(title, author);
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }

@@ -14,6 +14,12 @@
     <string name="refresh">Refresh</string>
     <string name="who_wrote_it">Who wrote it?</string>
     <string name="sample_poem_title">Loading poem...</string>
-    <string name="sample_poem_content">Check your Internet connection and try to refresh if loading is stuck.</string>
-    <string name="sample_poem_author"></string>
+    <string name="sample_poem_content">Check your Internet connection and try refreshing if loading is stuck.</string>
+    <string name="sample_poem_author">…</string>
+    <string name="title">Title</string>
+    <string name="author">Author</string>
+    <string name="content">Content</string>
+    <string name="enter_query">Enter your query here...</string>
+    <string name="saved_fav">Saved to favorites!</string>
+    <string name="removed_fav">Removed from favorites.</string>
 </resources>
