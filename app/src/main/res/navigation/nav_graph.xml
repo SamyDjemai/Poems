@@ -9,5 +9,5 @@
         android:id="@+id/PoemFragment"
         android:name="net.djemai.poems.PoemFragment"
         android:label="@string/poem_fragment_label"
-        tools:layout="@layout/poem_fragment" />
+        tools:layout="@layout/fragment_poem" />
 </navigation>

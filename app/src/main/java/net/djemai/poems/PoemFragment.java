@@ -1,17 +1,12 @@
 package net.djemai.poems;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,11 +14,8 @@ import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.loader.content.AsyncTaskLoader;
 
-import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import net.djemai.poems.async.AsyncCheckFavoriteTask;
 import net.djemai.poems.async.AsyncImageSearchTask;
@@ -54,7 +46,7 @@ public class PoemFragment extends Fragment {
             Bundle savedInstanceState
     ) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.poem_fragment, container, false);
+        return inflater.inflate(R.layout.fragment_poem, container, false);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -86,40 +78,44 @@ public class PoemFragment extends Fragment {
             asTask.execute();
         }
 
-        favoriteTB.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (buttonView.isEnabled()) {
-                String title = title_tv.getText().toString();
-                String author = author_tv.getText().toString();
-                String content = content_tv.getText().toString();
-                String imageURL = this.imageURL;
+        if (favoriteTB != null) {
+            favoriteTB.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (buttonView.isEnabled()) {
+                    String title = title_tv.getText().toString();
+                    String author = author_tv.getText().toString();
+                    String content = content_tv.getText().toString();
+                    String imageURL = this.imageURL;
 
-                buttonView.setClickable(false);
-                if (isChecked) {
-                    AsyncTask.execute(() -> {
-                        PoemDao poemDao = PoemRoomDatabase.getDatabase(getContext()).poemDao();
-                        Poem poem = new Poem(title, author);
-                        poem.content = content;
-                        poem.imageURL = imageURL;
-                        poemDao.insert(poem);
-                        buttonView.setClickable(true);
+                    buttonView.setClickable(false);
+                    if (isChecked) {
+                        AsyncTask.execute(() -> {
+                            PoemDao poemDao = PoemRoomDatabase.getDatabase(getContext()).poemDao();
+                            Poem poem = new Poem(title, author);
+                            poem.content = content;
+                            poem.imageURL = imageURL;
+                            poemDao.insert(poem);
+                            buttonView.setClickable(true);
 
-                        getActivity().runOnUiThread(() -> {
-                            Toast.makeText(getContext(), R.string.saved_fav, Toast.LENGTH_LONG).show();
+                            getActivity().runOnUiThread(() -> {
+                                Toast.makeText(getContext(), R.string.saved_fav, Toast.LENGTH_LONG).show();
+                            });
                         });
-                    });
-                } else {
-                    AsyncTask.execute(() -> {
-                        PoemDao poemDao = PoemRoomDatabase.getDatabase(getContext()).poemDao();
-                        poemDao.delete(new Poem(title, author));
-                        buttonView.setClickable(true);
+                    } else {
+                        AsyncTask.execute(() -> {
+                            PoemDao poemDao = PoemRoomDatabase.getDatabase(getContext()).poemDao();
+                            poemDao.delete(new Poem(title, author));
+                            buttonView.setClickable(true);
 
-                        getActivity().runOnUiThread(() -> {
-                            Toast.makeText(getContext(), R.string.removed_fav, Toast.LENGTH_LONG).show();
+                            getActivity().runOnUiThread(() -> {
+                                Toast.makeText(getContext(), R.string.removed_fav, Toast.LENGTH_LONG).show();
+                            });
                         });
-                    });
+                    }
                 }
-            }
-        });
+            });
+        }
+
+
     }
 
     public void onFinishedLoading() {

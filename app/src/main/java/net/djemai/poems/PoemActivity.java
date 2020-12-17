@@ -12,9 +12,6 @@ import com.squareup.picasso.Picasso;
 import net.djemai.poems.async.AsyncPoemFetchTask;
 
 public class PoemActivity extends AppCompatActivity {
-
-    private Fragment poemFragment;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

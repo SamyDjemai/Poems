@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -51,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.favorites:
                 Intent favorites = new Intent(getApplicationContext(), FavoritesActivity.class);
                 startActivity(favorites);
+                return true;
+            case R.id.who_wrote_it:
+                Intent game = new Intent(getApplicationContext(), GameActivity.class);
+                startActivity(game);
                 return true;
             default:
                 break;
