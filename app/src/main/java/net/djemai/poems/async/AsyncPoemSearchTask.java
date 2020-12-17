@@ -4,8 +4,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import androidx.recyclerview.widget.RecyclerView;
-
 import net.djemai.poems.Poem;
 import net.djemai.poems.PoemListAdapter;
 
@@ -23,8 +21,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class AsyncPoemSearchTask extends AsyncTask<String, Void, JSONArray> {
-    private String queryType;
-    private PoemListAdapter poemListAdapter;
+    private final String queryType;
+    private final PoemListAdapter poemListAdapter;
 
     public AsyncPoemSearchTask(PoemListAdapter poemListAdapter, Boolean titleSearch) {
         this.poemListAdapter = poemListAdapter;

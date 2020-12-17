@@ -1,15 +1,8 @@
 package net.djemai.poems;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
-
-import com.squareup.picasso.Picasso;
-
-import net.djemai.poems.async.AsyncPoemFetchTask;
 
 public class PoemActivity extends AppCompatActivity {
     @Override

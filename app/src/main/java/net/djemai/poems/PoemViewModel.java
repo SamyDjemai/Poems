@@ -9,7 +9,7 @@ import java.util.List;
 
 public class PoemViewModel extends AndroidViewModel {
 
-    private PoemRepository mRepository;
+    private final PoemRepository mRepository;
 
     private final LiveData<List<Poem>> mAllPoems;
 

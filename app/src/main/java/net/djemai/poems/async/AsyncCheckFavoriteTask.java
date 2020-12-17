@@ -2,7 +2,6 @@ package net.djemai.poems.async;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.view.View;
 import android.widget.ToggleButton;
 
 import net.djemai.poems.PoemDao;
@@ -10,8 +9,8 @@ import net.djemai.poems.PoemRoomDatabase;
 
 public class AsyncCheckFavoriteTask extends AsyncTask<String, Void, Boolean> {
 
-    private Context context;
-    private ToggleButton favoriteTB;
+    private final Context context;
+    private final ToggleButton favoriteTB;
 
     public AsyncCheckFavoriteTask(Context context, ToggleButton favoriteTB) {
         this.context = context;

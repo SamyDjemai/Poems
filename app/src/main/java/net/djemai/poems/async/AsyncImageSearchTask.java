@@ -2,16 +2,10 @@ package net.djemai.poems.async;
 
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.text.TextUtils;
 import android.util.Log;
-import android.widget.ImageView;
-
-import com.squareup.picasso.NetworkPolicy;
-import com.squareup.picasso.Picasso;
 
 import net.djemai.poems.PoemFragment;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -23,11 +17,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
 
 public class AsyncImageSearchTask extends AsyncTask<String, Void, JSONObject> {
 
-    private PoemFragment poemFragment;
+    private final PoemFragment poemFragment;
 
     public AsyncImageSearchTask(PoemFragment poemFragment) {
         this.poemFragment = poemFragment;

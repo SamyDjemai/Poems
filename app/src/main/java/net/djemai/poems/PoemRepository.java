@@ -8,8 +8,8 @@ import java.util.List;
 
 class PoemRepository {
 
-    private PoemDao poemDao;
-    private LiveData<List<Poem>> allPoems;
+    private final PoemDao poemDao;
+    private final LiveData<List<Poem>> allPoems;
 
     // Note that in order to unit test the WordRepository, you have to remove the Application
     // dependency. This adds complexity and much more code, and this sample is not about testing.

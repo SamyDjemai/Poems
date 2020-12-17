@@ -1,16 +1,12 @@
 package net.djemai.poems.async;
 
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import net.djemai.poems.GameFragment;
-import net.djemai.poems.Poem;
-import net.djemai.poems.PoemFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -23,7 +19,7 @@ import java.net.URL;
 
 public class AsyncRandomAuthorFetchTask extends AsyncTask<String, Void, JSONArray> {
 
-    private GameFragment gameFragment;
+    private final GameFragment gameFragment;
 
     public AsyncRandomAuthorFetchTask(GameFragment gameFragment) {
         this.gameFragment = gameFragment;

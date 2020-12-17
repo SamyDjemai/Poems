@@ -22,8 +22,8 @@ import java.net.URL;
 
 public class AsyncPoemFetchTask extends AsyncTask<String, Void, JSONArray> {
 
-    private PoemFragment poemFragment;
-    private Boolean randomFetch;
+    private final PoemFragment poemFragment;
+    private final Boolean randomFetch;
 
     public AsyncPoemFetchTask(PoemFragment poemFragment, Boolean randomFetch) {
         this.poemFragment = poemFragment;
